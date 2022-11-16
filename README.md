@@ -20,7 +20,9 @@ And the shopping cart’s total price should equal 199.95
 
 #
 
-### Step 2: Add additional products of the same type to the shopping cart. Given:
+### Step 2: Add additional products of the same type to the shopping cart.
+
+##### Given:
 
 An empty shopping cart
 
@@ -40,7 +42,9 @@ And the shopping cart’s total price should equal 319.92
 
 #
 
-### Step 3: Calculate the tax rate of the shopping cart with multiple items Given:
+### Step 3: Calculate the tax rate of the shopping cart with multiple items
+
+##### Given:
 
 An empty shopping cart
 
