@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
+import static models.ProductCategory.DEO;
 import static models.ProductCategory.SOAP;
 
 class ShoppingCartItemTest {
@@ -23,7 +24,7 @@ class ShoppingCartItemTest {
     @DisplayName("Test the product quantity in Cart Item")
     void shouldTestTheQuantityInCartTime() {
         BigDecimal taxRate = new BigDecimal("12.5");
-        Product axeDeo = new Product("Axe Deo", "Axe Deo Body Spray", SOAP, new Price(new BigDecimal("99.99"), taxRate));
+        Product axeDeo = new Product("Axe Deo", "Axe Deo Body Spray", DEO, new Price(new BigDecimal("99.99"), taxRate));
         ShoppingCartItem cartItem = new ShoppingCartItem(axeDeo, 1);
         Assertions.assertEquals(1, cartItem.getQuantity());
     }
@@ -32,7 +33,7 @@ class ShoppingCartItemTest {
     @DisplayName("Test total price calculation")
     void shouldTestTotalPriceCalculation() {
         BigDecimal taxRate = new BigDecimal("13.5");
-        Product axeDeo = new Product("Axe Deo", "Axe Deo Body Spray", SOAP, new Price(new BigDecimal("55.99"), taxRate));
+        Product axeDeo = new Product("Axe Deo", "Axe Deo Body Spray", DEO, new Price(new BigDecimal("55.99"), taxRate));
         ShoppingCartItem cartItem = new ShoppingCartItem(axeDeo, 1);
         Assertions.assertEquals(new BigDecimal("63.55"), cartItem.getTotalPrice());
     }
@@ -41,7 +42,7 @@ class ShoppingCartItemTest {
     @DisplayName("Test tax amount on unit price calculation")
     void shouldTestTaxAmountCalculation() {
         BigDecimal taxRate = new BigDecimal("11.5");
-        Product axeDeo = new Product("Axe Deo", "Axe Deo Body Spray", SOAP, new Price(new BigDecimal("101.99"), taxRate));
+        Product axeDeo = new Product("Axe Deo", "Axe Deo Body Spray", DEO, new Price(new BigDecimal("101.99"), taxRate));
         ShoppingCartItem cartItem = new ShoppingCartItem(axeDeo, 1);
         Assertions.assertEquals(new BigDecimal("11.73"), cartItem.getTotalTaxAmount());
     }

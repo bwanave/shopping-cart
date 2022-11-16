@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
+import static models.ProductCategory.DEO;
 import static models.ProductCategory.SOAP;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -123,7 +124,7 @@ class ShoppingCartTest {
         ShoppingCart shoppingCart = new ShoppingCart();
         BigDecimal taxRate = new BigDecimal("12.5");
         Product doveSoap = new Product("Dove Soap", "Dove Beauty Bar Soap (135 g)", SOAP, new Price(new BigDecimal("39.99"), taxRate));
-        Product axeDeo = new Product("Axe Deo", "Axe Deo Body Spray", SOAP, new Price(new BigDecimal("99.99"), taxRate));
+        Product axeDeo = new Product("Axe Deo", "Axe Deo Body Spray", DEO, new Price(new BigDecimal("99.99"), taxRate));
 
         //When:
         shoppingCart.addProduct(doveSoap, 2);

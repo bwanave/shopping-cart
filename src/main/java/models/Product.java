@@ -29,10 +29,7 @@ public final class Product {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Product product = (Product) obj;
-        return Objects.equals(name, product.name)
-                && Objects.equals(description, product.description)
-                && Objects.equals(category, product.category)
-                && Objects.equals(price, product.price);
+        return Objects.equals(name, product.name) && Objects.equals(description, product.description) && Objects.equals(category, product.category) && Objects.equals(price, product.price);
     }
 
     @Override

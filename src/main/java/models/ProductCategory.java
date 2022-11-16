@@ -1,6 +1,5 @@
 package models;
 
 public enum ProductCategory {
-    SOAP,
-    DEO
+    SOAP, DEO
 }
