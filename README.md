@@ -1,4 +1,4 @@
-# Shopping Cart
+# Shopping Cart Implementation supporting below features
 
 ### Step 1: Add products to the shopping cart.
 
