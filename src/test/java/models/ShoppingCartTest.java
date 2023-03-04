@@ -1,5 +1,8 @@
 package models;
 
+import models.offers.BuyXGetYOffer;
+import models.offers.Offer;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -38,7 +41,7 @@ class ShoppingCartTest {
     void shouldAdd5DoveSoapsToTheEmptyCart() {
         //Given:
         ShoppingCart shoppingCart = new ShoppingCart();
-        Product doveSoap = new Product("Dove Soap", "Dove Beauty Bar Soap (135 g)", SOAP, new Price(new BigDecimal("39.99")));
+        Product doveSoap = new Product("Dove Soap", "Dove Beauty Bar Soap (135 g)", SOAP, new BigDecimal("39.99"));
 
         //When:
         shoppingCart.addProduct(doveSoap, 5);
@@ -76,7 +79,7 @@ class ShoppingCartTest {
     void shouldAdd5And3DoveSoapsToTheEmptyCart() {
         //Given:
         ShoppingCart shoppingCart = new ShoppingCart();
-        Product doveSoap = new Product("Dove Soap", "Dove Beauty Bar Soap (135 g)", SOAP, new Price(new BigDecimal("39.99")));
+        Product doveSoap = new Product("Dove Soap", "Dove Beauty Bar Soap (135 g)", SOAP, new BigDecimal("39.99"));
 
         //When:
         shoppingCart.addProduct(doveSoap, 5);
@@ -121,10 +124,10 @@ class ShoppingCartTest {
     @DisplayName("Adds 2 Dove Soaps and 2 Axe Deo's to the empty shopping cart, then assert quantity, tax amount and total price")
     void shouldAdd2DoveSoapsAnd2AxeDeoToTheEmptyCart() {
         //Given:
-        ShoppingCart shoppingCart = new ShoppingCart();
         BigDecimal taxRate = new BigDecimal("12.5");
-        Product doveSoap = new Product("Dove Soap", "Dove Beauty Bar Soap (135 g)", SOAP, new Price(new BigDecimal("39.99"), taxRate));
-        Product axeDeo = new Product("Axe Deo", "Axe Deo Body Spray", DEO, new Price(new BigDecimal("99.99"), taxRate));
+        ShoppingCart shoppingCart = new ShoppingCart(taxRate);
+        Product doveSoap = new Product("Dove Soap", "Dove Beauty Bar Soap (135 g)", SOAP, new BigDecimal("39.99"));
+        Product axeDeo = new Product("Axe Deo", "Axe Deo Body Spray", DEO, new BigDecimal("99.99"));
 
         //When:
         shoppingCart.addProduct(doveSoap, 2);
@@ -139,6 +142,39 @@ class ShoppingCartTest {
         assertEquals(new BigDecimal("314.96"), shoppingCart.getTotalPrice(), "Total price of Shopping Cart is not correct");
     }
 
+    /**
+     * Step 4: Add products to the shopping cart, which have "Buy X, Get Y free" offer.
+     * <p>
+     * Given:
+     * •	An empty shopping cart
+     * •	And a product, Dove Soap with a unit price of 39.99 and a associated Buy 2 Get 1 Free offer., tax 12.5
+     * •	And a product, Axe Deo with a unit price of 89.99 and no associated offer.
+     * When:
+     * •	The user adds 3 Dove Soaps to the shopping cart
+     * Then:
+     * •	The shopping cart should contain 3 Dove Soaps each with a unit price of 39.99
+     * •	And the shopping cart's total price should equal 89.98
+     * •	And the shopping cart's total discount should equal 39.99
+     * •	And the total tax amount should equal 10.00
+     */
+    @Test
+    void shouldAddProductsToEmptyShoppingCartAndReturnDiscountedPrice() {
+        //Given:
+        BigDecimal taxRate = new BigDecimal("12.5");
+        ShoppingCart shoppingCart = new ShoppingCart(taxRate);
+        Offer offer = new BuyXGetYOffer(2, 1);
+        Product doveSoap = new Product("Dove Soap", "Dove Beauty Bar Soap (135 g)", SOAP, new BigDecimal("39.99"), offer);
+        Product axeDeo = new Product("Axe Deo", "Axe Deo Body Spray", DEO, new BigDecimal("89.99"));
+
+        //When:
+        shoppingCart.addProduct(doveSoap, 3);
+
+        //Assert
+        Assertions.assertEquals(new BigDecimal("89.98"), shoppingCart.getTotalPrice());
+        Assertions.assertEquals(new BigDecimal("39.99"), shoppingCart.getTotalDiscount());
+        Assertions.assertEquals(new BigDecimal("10.00"), shoppingCart.getTotalTaxAmount());
+    }
+
     private ShoppingCartItem getShoppingCartItemByProduct(Product product, ShoppingCart shoppingCart) {
         List<ShoppingCartItem> cartItems = shoppingCart.getCartItems();
         Optional<ShoppingCartItem> optionalCartItem = cartItems.stream()
@@ -147,4 +183,6 @@ class ShoppingCartTest {
         assertTrue(optionalCartItem.isPresent(), "Dove Soap product doesn't present in Shopping Cart");
         return optionalCartItem.get();
     }
+
+
 }

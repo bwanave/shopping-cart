@@ -1,5 +1,7 @@
 package models;
 
+import models.offers.Offer;
+
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -7,33 +9,40 @@ public final class Product {
     private final String name;
     private final String description;
     private final ProductCategory category;
-    private final Price price;
+    private final BigDecimal unitPrice;
 
-    public Product(String name, String description, ProductCategory category, Price price) {
+    private final Offer offer;
+
+    public Product(String name, String description, ProductCategory category, BigDecimal unitPrice) {
+        this(name, description, category, unitPrice, (buyQty, getQty) -> BigDecimal.ZERO);
+    }
+
+    public Product(String name, String description, ProductCategory category, BigDecimal unitPrice, Offer offer) {
         this.name = name;
         this.description = description;
         this.category = category;
-        this.price = price;
+        this.unitPrice = unitPrice;
+        this.offer = offer;
     }
 
-    BigDecimal getPriceWithTax() {
-        return price.getPriceWithTax();
+    public BigDecimal getUnitPrice() {
+        return unitPrice;
     }
 
-    BigDecimal getTaxAmountOnUnitPrice() {
-        return price.getTaxAmountOnUnitPrice();
+    public Offer getOffer() {
+        return offer;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        Product product = (Product) obj;
-        return Objects.equals(name, product.name) && Objects.equals(description, product.description) && Objects.equals(category, product.category) && Objects.equals(price, product.price);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return Objects.equals(name, product.name) && Objects.equals(description, product.description) && category == product.category && Objects.equals(unitPrice, product.unitPrice);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, description, category, price);
+        return Objects.hash(name, description, category, unitPrice);
     }
 }
