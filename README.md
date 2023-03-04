@@ -1,6 +1,7 @@
-# Shopping Cart Implementation supporting below features
+# Shopping Cart Implementation
+###### Shopping cart implementation supporting below features
 
-### Step 1: Add products to the shopping cart.
+### Feature 1: Add products to the shopping cart.
 
 ##### Given:
 
@@ -20,7 +21,7 @@ And the shopping cart’s total price should equal 199.95
 
 # 
 
-### Step 2: Add additional products of the same type to the shopping cart.
+### Feature 2: Add additional products of the same type to the shopping cart.
 
 ##### Given:
 
@@ -42,7 +43,7 @@ And the shopping cart’s total price should equal 319.92
 
 #
 
-### Step 3: Calculate the tax rate of the shopping cart with multiple items
+### Feature 3: Calculate the tax rate of the shopping cart with multiple items
 
 ##### Given:
 
@@ -72,7 +73,7 @@ And the shopping cart’s total price should equal 314.96
 
 #
 
-### Step4: Add products to the shopping cart, which have "Buy X, Get Y free" offer.
+### Feature4: Add products to the shopping cart, which have "Buy X, Get Y free" offer.
 
 ##### Given:
 
@@ -98,7 +99,7 @@ And the total tax amount should equal 10.00
 
 #
 
-### Step5:
+### Feature5:
 
 ##### When:
 
@@ -116,7 +117,7 @@ And the total tax amount should equal 20.00
 
 #
 
-### Step6:
+### Feature6:
 
 ##### When:
 
